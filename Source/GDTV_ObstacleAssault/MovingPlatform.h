@@ -24,8 +24,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	int32 MyInt = 99;
-	
-	UPROPERTY(EditAnywhere)
-	bool IsMoving = false;
+	FVector MyVector = FVector(1, 2, 3);
+
 };
