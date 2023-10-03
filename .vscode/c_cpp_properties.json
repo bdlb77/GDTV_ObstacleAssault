@@ -1,14 +1,21 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "GDTV_ObstacleAssaultEditor Editor Win64 Development (GDTV_ObstacleAssault)",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.37.32822\\bin\\Hostx64\\x64\\cl.exe",
             "cStandard": "c17",
             "cppStandard": "c++20",
             "intelliSenseMode": "msvc-x64",
-            "compileCommands": "C:\\Users\\bryan\\code\\Unreal Projects\\GDTV_ObstacleAssault\\.vscode\\compileCommands_Default.json",
-            "includePath": [ "${workspaceFolder}\\Intermediate\\**", "${workspaceFolder}\\Plugins\\**", "${workspaceFolder}\\Source\\**" ]
+            "compileCommands": "C:\\Users\\bryan\\code\\Unreal Projects\\GDTV_ObstacleAssault\\.vscode\\compileCommands_GDTV_ObstacleAssault.json"
+        },
+        {
+            "name": "Win32",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.37.32822\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Users\\bryan\\code\\Unreal Projects\\GDTV_ObstacleAssault\\.vscode\\compileCommands_Default.json"
         }
-        
     ],
     "version": 4
 }
