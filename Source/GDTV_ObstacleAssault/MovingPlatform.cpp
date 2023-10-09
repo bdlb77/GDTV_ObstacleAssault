@@ -41,8 +41,13 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	if (DistanceMoved > MoveDistance)
 	{
+		// Get a normalized vector of Veloctity 
+		FVector MoveDirectionVelocity = PlatformVelocity.GetSafeNormal();
+		// calculate distance from current StartLocation (CurrLocation)
+		StartLocation = StartLocation + MoveDirectionVelocity * MoveDistance;
+		SetActorLocation(StartLocation);
+		// Reverse Direction
 		PlatformVelocity = -PlatformVelocity;
-		StartLocation = CurrentLocation;
 	}
 	// reverse dire		cttion of motion if gone too far
 
