@@ -23,14 +23,25 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	FVector StartLocation;
-	float DistanceMoved;
-	
+private:
 	UPROPERTY(EditAnywhere, Category="Moving Platform")
-	FVector PlatformVelocity = FVector(100, 0, 0);
+	FVector MoveVelocity = FVector(100, 0, 0);
 	UPROPERTY(EditAnywhere, Category="Moving Platform")
 	float MoveDistance = 100;
+	UPROPERTY(EditAnywhere, Category="Rotation Platform")
+	FRotator RotationVelocity;
+
+	float DistanceMoved;
+	FVector StartLocation;
 
 
+	void MovePlatform(float DeltaTime);
+
+	void RotatePlatform(float DeltaTime);
 	
+	// should not modify any value within the class. Not Valid: SetActorLocation()  Is Valid: GetActorLocation()
+	bool ShouldPlatformTurn() const;
+
+	float GetDistanceMoved() const;
 };
+

@@ -1,14 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "MovingPlatform.h"
 
 // Sets default values
 AMovingPlatform::AMovingPlatform()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -16,7 +14,9 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 	StartLocation = GetActorLocation();
-
+	UE_LOG(LogTemp, Display, TEXT("Configured Move Distance: %f"), MoveDistance);
+	FString Name = GetName();
+	UE_LOG(LogTemp, Display, TEXT("Begin Play: %s"), *Name);
 }
 
 // Called every frame
@@ -24,32 +24,45 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Move plat foward
+	MovePlatform(DeltaTime);
 
-	// get current location
-	FVector CurrentLocation = GetActorLocation();
+	RotatePlatform(DeltaTime);
+}
 
-	// add vector to that location
-	// CurrentLocation.Y += 1;
-	CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
-	// set location
-	SetActorLocation(CurrentLocation);
-	// send platform back if gone too far
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
 
-	// check how far we've moved
-	DistanceMoved = FVector::Dist(StartLocation, CurrentLocation);
-
-	if (DistanceMoved > MoveDistance)
+	if (ShouldPlatformTurn())
 	{
-		// Get a normalized vector of Veloctity 
-		FVector MoveDirectionVelocity = PlatformVelocity.GetSafeNormal();
+		FVector MoveDirectionVelocity = MoveVelocity.GetSafeNormal();
 		// calculate distance from current StartLocation (CurrLocation)
 		StartLocation = StartLocation + MoveDirectionVelocity * MoveDistance;
 		SetActorLocation(StartLocation);
 		// Reverse Direction
-		PlatformVelocity = -PlatformVelocity;
+		MoveVelocity = -MoveVelocity;
 	}
-	// reverse dire		cttion of motion if gone too far
-
+	else
+	{
+		FVector CurrentLocation = GetActorLocation();
+		// add vector to that location
+		// move platform independent of framerate
+		CurrentLocation = CurrentLocation + (MoveVelocity * DeltaTime);
+		// set location
+		SetActorLocation(CurrentLocation);
+	}
 }
 
+void AMovingPlatform::RotatePlatform(float DeltaTime)
+{
+	AddActorLocalRotation(RotationVelocity * DeltaTime);
+}
+
+bool AMovingPlatform::ShouldPlatformTurn() const
+{
+	return GetDistanceMoved() > MoveDistance;
+}
+
+float AMovingPlatform::GetDistanceMoved() const
+{
+	return FVector::Dist(StartLocation, GetActorLocation());
+}
